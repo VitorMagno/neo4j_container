@@ -1,16 +1,24 @@
 version: '3.8'
 
 services:
-  neo4j:
-    image: neo4j:latest
-    container_name: neo4j
+  neo4j-apoc:
+    image: neo4j:2025.04
+    container_name: neo4j-apoc
     ports:
-      - "7474:7474"     
-      - "7687:7687"     
+      - "7474:7474"   
+      - "7687:7687"   
     volumes:
-      - ./data:/data
-      - ./logs:/logs
-      - ./import:/var/lib/neo4j/import   
-      - ./plugins:/plugins               
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - ./import:/var/lib/neo4j/import
+      - ./plugins:/plugins
     environment:
-      NEO4J_AUTH: "neo4j/fasttrack"
+      NEO4J_AUTH: "neo4j/minhaSenha123"
+      NEO4J_apoc_export_file_enabled: "true"
+      NEO4J_apoc_import_file_enabled: "true"
+      NEO4J_apoc_import_file_use__neo4j__config: "true"
+      NEO4J_PLUGINS: '["apoc"]'
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
